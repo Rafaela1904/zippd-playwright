@@ -1,0 +1,46 @@
+import { test as base, chromium, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
+
+export const test = base.extend<{
+  page: Page;
+}>({
+  page: async ({}, use) => {
+
+    const browser = await chromium.launch({ headless: false });
+
+    const context = await browser.newContext({
+      permissions: ['geolocation'],
+      geolocation: {
+        latitude: 14.5995,
+        longitude: 120.9842,
+      },
+    });
+
+    const page = await context.newPage();
+
+    await page.addInitScript(() => {
+      const fakePosition: any = {
+        coords: {
+          latitude: 14.5995,
+          longitude: 120.9842,
+          accuracy: 100,
+        },
+        timestamp: Date.now(),
+      };
+
+      navigator.geolocation.getCurrentPosition = (success: any) => {
+        success(fakePosition);
+      };
+
+      navigator.geolocation.watchPosition = (success: any) => {
+        success(fakePosition);
+        return 1;
+      };
+    });
+
+    await use(page);
+
+    await context.close();
+    await browser.close();
+  },
+});
