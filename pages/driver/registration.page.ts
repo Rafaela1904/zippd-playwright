@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { handleInitialConsent } from '../helpers/handleInitialConsent';
 
 export class DriverRegistrationPage {
   readonly page: Page;
@@ -9,6 +10,7 @@ export class DriverRegistrationPage {
 
   async goto() {
     await this.page.goto('/driver/registration');
+    await handleInitialConsent(this.page);
   }
 
   async register(name: string, email: string, password: string) {

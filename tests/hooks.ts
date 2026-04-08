@@ -1,5 +1,6 @@
-import { test as base, chromium, expect } from '@playwright/test';
+import { test as base, chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
+import { handleInitialConsent } from '../helpers/handleInitialConsent';
 
 export const test = base.extend<{
   page: Page;
@@ -37,6 +38,10 @@ export const test = base.extend<{
         return 1;
       };
     });
+
+    const initialUrl = process.env.BASE_URL || 'https://portal-dev.zippd.com';
+    await page.goto(initialUrl, { waitUntil: 'domcontentloaded' }).catch(() => undefined);
+    await handleInitialConsent(page);
 
     await use(page);
 

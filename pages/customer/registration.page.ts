@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { handleInitialConsent } from '../../helpers/handleInitialConsent';
 
 export class CustomerRegistrationPage {
   readonly page: Page;
@@ -9,6 +10,7 @@ export class CustomerRegistrationPage {
 
   async goto() {
     await this.page.goto('/customer/registration');
+    await handleInitialConsent(this.page);
   }
 
   async register(name: string, email: string, password: string) {

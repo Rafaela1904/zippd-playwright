@@ -1,4 +1,5 @@
 import { Page, Locator } from '@playwright/test';
+import { handleInitialConsent } from '../../helpers/handleInitialConsent';
 
 export class CustomerAccountPage {
   readonly page: Page;
@@ -11,6 +12,7 @@ export class CustomerAccountPage {
 
   async goto() {
     await this.page.goto('/customer/account');
+    await handleInitialConsent(this.page);
   }
 
   async isVisible() {

@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test';
+import { handleInitialConsent } from '../../helpers/handleInitialConsent';
 
 export class CustomerLoginPage {
   readonly page: Page;
@@ -7,7 +8,10 @@ export class CustomerLoginPage {
     this.page = page;
   }
 
-  async goto() { await this.page.goto('/customer/login'); }
+  async goto() {
+    await this.page.goto('/customer/login');
+    await handleInitialConsent(this.page);
+  }
 
   async login(email: string, password: string) {
     // Use the correct locators, not the actual email
