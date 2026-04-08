@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node", "@playwright/test"],
     "target": "ESNext",
     "module": "CommonJS",
     "moduleResolution": "Node",
