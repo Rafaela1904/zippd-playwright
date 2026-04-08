@@ -13,12 +13,17 @@ const consentSelectors = [
 ];
 
 export async function handleInitialConsent(page: Page) {
+  // Wait a bit for the consent modal to appear
+  await page.waitForTimeout(1000);
+  
   for (const selector of consentSelectors) {
     try {
       const button = page.locator(selector);
-      if (await button.isVisible({ timeout: 2000 })) {
+      if (await button.isVisible({ timeout: 5000 })) {
         await button.click();
         console.log(`Cookies accepted with selector: ${selector} ✅`);
+        // Wait for consent modal to disappear after clicking
+        await page.waitForTimeout(2000);
         break;
       }
     } catch {
