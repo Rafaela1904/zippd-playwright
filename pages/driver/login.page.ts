@@ -1,5 +1,5 @@
 import { Page } from '@playwright/test';
-import { handleInitialConsent } from '../helpers/handleInitialConsent';
+import { handleInitialConsent } from '../../helpers/handleInitialConsent';
 
 export class DriverLoginPage {
   readonly page: Page;

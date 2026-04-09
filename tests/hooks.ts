@@ -17,6 +17,25 @@ export const test = base.extend<{
       },
     });
 
+    // ✅ ADD THIS
+await context.addCookies([
+  {
+    name: 'cookieConsent', // ⚠️ we may adjust this
+    value: 'true',
+    domain: 'portal-dev.zippd.com',
+    path: '/',
+  },
+]);
+
+await context.addCookies([
+  {
+    name: 'cookieAccept',
+    value: 'true',
+    domain: 'portal-dev.zippd.com',
+    path: '/',
+  },
+]);
+
     const page = await context.newPage();
 
     await page.addInitScript(() => {
