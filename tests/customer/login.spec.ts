@@ -9,12 +9,13 @@ test('Customer can log in with real credentials', async ({ page }) => {
 
   await loginPage.goto();
 
-  // ✅ Handle first cookie popup
+  // ✅ Handle cookie FIRST
   await handleInitialConsent(page);
 
-  await page.waitForLoadState('networkidle');
+  // ✅ Wait for Flutter/UI to stabilize
+  await page.waitForTimeout(2000);
 
-  // ✅ Handle second popup (important in your case)
+  // ✅ Handle AGAIN (your site shows it twice)
   await handleInitialConsent(page);
 
   const email = process.env.CUSTOMER_EMAIL;
@@ -26,6 +27,7 @@ test('Customer can log in with real credentials', async ({ page }) => {
 
   await loginPage.login(email, password);
 
+  // ✅ Wait for navigation instead of networkidle
   await page.waitForURL('**/dashboard', { timeout: 10000 });
 
   const dashboard = new CustomerDashboardPage(page);

@@ -14,19 +14,25 @@ export class CustomerLoginPage {
   }
 
   async login(email: string, password: string) {
-  // ensure cookie is gone before typing
-  await this.page.locator('#cookieAccept').waitFor({ state: 'hidden' });
+  // make sure cookie is NOT blocking
+  const cookieBtn = this.page.getByRole('button', { name: 'Accept' });
+  if (await cookieBtn.isVisible().catch(() => false)) {
+    await cookieBtn.click();
+    await cookieBtn.waitFor({ state: 'hidden' });
+  }
 
-  const emailInput = this.page.locator('input[name="email"]');
-  await emailInput.click();
-  await emailInput.fill('');
+  await this.page.waitForTimeout(2000); // wait for UI
+
+  // Click approximate position of email field
+  await this.page.mouse.click(600, 300); // adjust position
+
   await this.page.keyboard.type(email);
 
-  const passwordInput = this.page.locator('input[name="password"]');
-  await passwordInput.click();
-  await passwordInput.fill('');
+  // Click password field
+  await this.page.mouse.click(600, 380); // adjust position
+
   await this.page.keyboard.type(password);
 
-  await this.page.locator('button[type="submit"]').click();
-}
-}
+  // Click login button
+  await this.page.mouse.click(600, 500); // adjust
+} }
