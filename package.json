@@ -12,5 +12,29 @@
     "@types/node": "^20.19.39",
     "dotenv": "^16.6.1",
     "typescript": "^5.2.2"
-  }
+  },
+  "description": "This project contains end-to-end automated tests for the Zippd portal using Playwright.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "fsevents": "^2.3.2",
+    "playwright": "^1.58.2",
+    "playwright-core": "^1.58.2",
+    "undici-types": "^6.21.0",
+    "webdriverio": "^9.27.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rafaela1904/zippd-playwright.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Rafaela1904/zippd-playwright/issues"
+  },
+  "homepage": "https://github.com/Rafaela1904/zippd-playwright#readme"
 }
