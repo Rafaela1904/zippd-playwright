@@ -42,17 +42,12 @@ const fields = await driver.$$('//XCUIElementTypeTextField');
 
 // EMAIL
 await fields[0].click();
-await fields[0].setValue('driver@test.com');
+await fields[0].setValue('testnewdev@gmail.com');
 
-// PASSWORD (DO NOT reuse email field)
-const password = await driver.$('//XCUIElementTypeSecureTextField');
-
-if (await password.isExisting()) {
-    await password.click();
-    await password.setValue('123456');
-} else {
-    throw new Error("Password field not found in UI tree");
-}
+const password = await driver.$('~password');
+await password.waitForDisplayed({ timeout: 10000 });
+await password.click();
+await password.setValue('Testtest@1');
 
 // 🔐 Login button
 const loginBtn = await driver.$('~Sign in to my account');
